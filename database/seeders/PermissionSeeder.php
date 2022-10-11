@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
@@ -59,24 +60,28 @@ class PermissionSeeder extends Seeder
          $user = \App\Models\User::factory()->create([
             'name' => 'Example admin',
             'email' => 'testadmin@example.com',
+            'password' => Hash::make('password'),
         ]);
         $user->assignRole($role1);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Example guest',
             'email' => 'guest@example.com',
+            'password' => Hash::make('password'),
         ]);
         $user->assignRole($role2);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Example user',
             'email' => 'user@example.com',
+            'password' => Hash::make('password'),
         ]);
         $user->assignRole($role3);
 
         $user = \App\Models\User::factory()->create([
             'name' => 'Example Super-Admin User',
             'email' => 'superadmin@example.com',
+            'password' => Hash::make('password'),
         ]);
         $user->assignRole($role4);
     }

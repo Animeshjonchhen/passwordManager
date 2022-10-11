@@ -1,7 +1,7 @@
 <x-layout>
-    @can('add user')
+    @can('add category')
         <div class="mt-3">
-            <a href="/create/user" class="container">Create new user</a>
+            <a href="/create/category" class="container">Create new Category</a>
         </div>
     @endcan
 
@@ -9,29 +9,27 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                    <th scope="col">User Id</th>
-                    <th scope="col">User Name</th>
-                    <th scope="col">Email</th>
-                    @can('edit users')
+                    <th scope="col">Category Id</th>
+                    <th scope="col">Category Name</th>
+                    @can('edit category')
                         <th scope="col">Action</th>
                     @endcan
                 </tr>
             </thead>
 
             <tbody>
-                @foreach ($users as $user)
+                @foreach ($categories as $category)
                     <tr>
-                        <th scope="row"> {{ $user->id }} </th>
-                        <td> {{ $user->name }} </td>
-                        <td> {{ $user->email }} </td>
+                        <th scope="row"> {{ $category->id }} </th>
+                        <td> {{ $category->name }} </td>
                         <td>
 
-                            @can('edit users')
+                            @can('edit category')
                                 <a href="" class="flex btn btn-primary"> Edit</a>
                             @endcan
 
-                            @can('delete users')
-                                <form action="/delete/{{ $user->id }}" method="post" class="flex">
+                            @can('delete category')
+                                <form action="/delete/{{ $category->id }}" method="post" class="flex">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger mx-3">Delete</button>
