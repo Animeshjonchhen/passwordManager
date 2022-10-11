@@ -43,7 +43,11 @@
                     <div class="row mb-3">
                         <label for="Role" class="col-sm-2 col-form-label">Role</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="role" name="role">
+                            <select name="role" id="role">
+                                <option value="admin">Admin</option>
+                                <option value="guest">Guest</option>
+                                <option value="maintainer">Maintainer</option>
+                            </select>
                         </div>
                     </div>
 

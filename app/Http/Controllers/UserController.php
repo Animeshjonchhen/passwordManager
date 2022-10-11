@@ -25,16 +25,20 @@ class UserController extends Controller
 
     public function store(Request $request)
     {
+
+        // dd($request->all());
         $attributes = $request->validate([
             'name' => 'required',
             'email' => 'required|unique:users,email',
             'password' => 'required|min:8',
-            'role' => 'required',
         ]);
         
         $attributes['password'] = Hash::make($attributes['password']);
         
         $user = User::create($attributes);
+
+        $role = request()->role;
+        $user->assignRole($role);
 
         auth()->login($user);
 
