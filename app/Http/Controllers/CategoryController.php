@@ -9,9 +9,14 @@ class CategoryController extends Controller
 {
     public function index()
     {
-        return view('categoryDashboard',[
-            'categories' => Category::all()
-        ]);
+        if (auth()->user()) {
+
+            return view('categoryDashboard', [
+                'categories' => Category::all()
+            ]);
+        } else {
+            return view('home');
+        }
     }
 
     public function create()
@@ -28,22 +33,32 @@ class CategoryController extends Controller
 
         Category::create($attributes);
 
-        return redirect('/dashboard');
+        return redirect('/category');
     }
 
-    public function edit(Request $request)
+    public function show(Category $category)
+    {
+        return view('Category.update',[
+            'category' => Category::find($category->id)
+        ]);
+    }
+
+    public function edit(Category $category,Request $request)
     {
         $attributes = $request->validate([
             'name' => 'required',
         ]);
 
-        Category::update($attributes);
+       $category->update($attributes);
 
-        return redirect('/dashboard');
+       return redirect('/category');
+
     }
 
-    public function destroy($id)
+    public function destroy(Category $category)
     {
-        dd($id);
+        $category->delete();
+
+        return redirect('/category');
     }
 }

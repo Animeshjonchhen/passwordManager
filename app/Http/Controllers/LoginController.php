@@ -30,7 +30,7 @@ class LoginController extends Controller
             ]);
         }
 
-        return redirect('/');
+        return redirect('/password');
     }
 
     public function edit()
@@ -42,6 +42,6 @@ class LoginController extends Controller
     {
         auth()->logout();
 
-        return redirect('/');
+        return redirect('/login');
     }
 }

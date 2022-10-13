@@ -5,6 +5,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordController;
 use App\Http\Controllers\UserController;
 use App\Models\Category;
+use App\Models\Password;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,19 +19,46 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/users/create',[UserController::class,'create']);
-Route::post('/users',[UserController::class,'store']);
-Route::get('/users',[UserController::class,'index']);
+Route::get('/', [function () {
+    if (auth()->user()) {
+        return view('Password.index', [
+            'passwords' => Password::all()
+        ]);
+    } else {
+        return view('home');
+    }
+}]);
 
-Route::get('/login',[LoginController::class,'index']);
-Route::post('/login',[LoginController::class,'store']);
-Route::post('/logout',[LoginController::class,'destroy']);
 
-Route::get('/',[PasswordController::class,'index']);
-Route::get('/create/password',[PasswordController::class,'create']);
-Route::post('/create/password',[PasswordController::class,'store']);
+//Users
+Route::get('/users', [UserController::class, 'index']);
+Route::get('/create/user', [UserController::class, 'create']);
+Route::post('/users', [UserController::class, 'store']);
+Route::get('/update/users/{user}', [UserController::class, 'show']);
+Route::put('/update/users/{user}', [UserController::class, 'edit']);
+Route::delete('/delete/users/{user}', [UserController::class, 'destroy']);
 
-Route::get('/category',[CategoryController::class,'index']);
-Route::get('/create/category',[CategoryController::class,'create']);
-Route::post('/create/category',[CategoryController::class,'store']);
-Route::delete('/delete/{id}',[CategoryController::class,'destroy']);
+
+//Sessions
+Route::get('/login', [LoginController::class, 'index']);
+Route::post('/login', [LoginController::class, 'store']);
+Route::post('/logout', [LoginController::class, 'destroy']);
+
+
+//Password
+Route::get('/password', [PasswordController::class, 'index']);
+Route::get('/create/password', [PasswordController::class, 'create']);
+Route::post('/create/password', [PasswordController::class, 'store']);
+Route::delete('/delete/password/{password}', [PasswordController::class, 'destroy']);
+Route::get('/update/password/{password}', [PasswordController::class, 'show']);
+Route::put('/update/password/{password}', [PasswordController::class, 'edit']);
+
+
+
+//Category
+Route::get('/category', [CategoryController::class, 'index']);
+Route::get('/create/category', [CategoryController::class, 'create']);
+Route::post('/create/category', [CategoryController::class, 'store']);
+Route::get('/update/category/{category}', [CategoryController::class, 'show']);
+Route::put('/update/category/{category}', [CategoryController::class, 'edit']);
+Route::delete('/delete/category/{category}', [CategoryController::class, 'destroy']);

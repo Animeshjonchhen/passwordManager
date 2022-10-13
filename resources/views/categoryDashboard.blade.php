@@ -22,20 +22,18 @@
                     <tr>
                         <th scope="row"> {{ $category->id }} </th>
                         <td> {{ $category->name }} </td>
-                        <td>
+                        @can('edit category')
+                            <td class="d-flex">
 
-                            @can('edit category')
-                                <a href="" class="flex btn btn-primary"> Edit</a>
-                            @endcan
+                                <a href="/update/category/{{ $category->id }}" class="flex btn btn-primary"> Edit</a>
 
-                            @can('delete category')
-                                <form action="/delete/{{ $category->id }}" method="post" class="flex">
+                                <form action="/delete/category/{{ $category->id }}" method="post" class="flex">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger mx-3">Delete</button>
                                 </form>
-                            @endcan
-                        </td>
+                            </td>
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>

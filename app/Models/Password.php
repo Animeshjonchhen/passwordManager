@@ -10,6 +10,7 @@ class Password extends Model
     use HasFactory;
 
     protected $fillable = [
+        'email',
         'username',
         'password',
         'url',
@@ -20,7 +21,11 @@ class Password extends Model
 
     public function category()
     {
-        return $this->belongsTo(category::class,'category_id');
+        return $this->belongsTo(Category::class,'category_id');
     }
-    
+
+    public function user()
+    {
+        return $this->belongsTo(User::class,'user_id');
+    }    
 }

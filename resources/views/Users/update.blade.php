@@ -2,7 +2,7 @@
 
     <div class="container">
         <h1 class="text-primary text-center">
-            Register new User!
+            Update User!
         </h1>
         <div class="card">
             @if ($errors->any())
@@ -15,21 +15,23 @@
                 </div>
             @endif
             <div class="card-body">
-                <h5 class="card-title">Register Form</h5>
+                <h5 class="card-title">Update Form</h5>
 
-                <form action="/users" method="post">
+                <form action="/update/users" method="post">
                     @csrf
                     <div class="row mb-3">
                         <label for="Name" class="col-sm-2 col-form-label">Your Name</label>
                         <div class="col-sm-10">
-                            <input type="text" class="form-control" id="name" name="name">
+                            <input type="text" class="form-control" id="name" name="name"
+                                value="{{ old('name', $users->name) }} ">
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="Email" class="col-sm-2 col-form-label">Email</label>
                         <div class="col-sm-10">
-                            <input type="email" class="form-control" id="email" name="email">
+                            <input type="email" class="form-control" id="email" name="email"
+                                value="{{ old('email', $users->email) }}">
                         </div>
                     </div>
 
@@ -45,14 +47,14 @@
                         <div class="col-sm-10">
                             <select name="role" id="role">
                                 @foreach ($roles as $role)
-                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                    <option value="{{ $role->name }} "> {{ $role->name }} </option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
 
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="submit" class="btn btn-primary">Update</button>
                         <button type="reset" class="btn btn-secondary">Reset</button>
                     </div>
 

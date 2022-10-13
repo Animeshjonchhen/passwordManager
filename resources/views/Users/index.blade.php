@@ -24,20 +24,18 @@
                         <th scope="row"> {{ $user->id }} </th>
                         <td> {{ $user->name }} </td>
                         <td> {{ $user->email }} </td>
-                        <td>
+                        @can('edit users')
+                            <td class="d-flex">
 
-                            @can('edit users')
-                                <a href="" class="flex btn btn-primary"> Edit</a>
-                            @endcan
+                                <a href="/update/users/{{ $user->id }}" class="flex btn btn-primary"> Edit</a>
 
-                            @can('delete users')
-                                <form action="/delete/{{ $user->id }}" method="post" class="flex">
+                                <form action="/delete/users/{{ $user->id }}" method="post" class="flex">
                                     @csrf
                                     @method('delete')
                                     <button class="btn btn-danger mx-3">Delete</button>
                                 </form>
-                            @endcan
-                        </td>
+                            </td>
+                        @endcan
                     </tr>
                 @endforeach
             </tbody>

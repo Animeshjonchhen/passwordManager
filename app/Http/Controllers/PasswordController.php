@@ -11,18 +11,32 @@ class PasswordController extends Controller
 {
     public function index()
     {
-        return view('Password.index',[
-            'passwords' => Password::all(),
-        ]);
+        if (auth()->user()) {
+            if (auth()->user()->name === "Example Super-Admin User") {
+                return view('Password.index', [
+                    'passwords' => Password::all()
+                ]);
+            } else {
+                return view('Password.index', [
+                    'passwords' => Password::where('user_id', auth()->user()->id)->get(),
+                ]);
+            }
+        } else {
+            return view('Users.login');
+        }
     }
 
-    public function show()
+    public function show($id)
     {
+        return view('Password.update', [
+            'categories' => Category::all(),
+            'password' => Password::find($id),
+        ]);
     }
 
     public function create()
     {
-        return view('Password.create',[
+        return view('Password.create', [
             'categories' => Category::all(),
         ]);
     }
@@ -30,13 +44,13 @@ class PasswordController extends Controller
     public function store(Request $request)
     {
         $attributes = $request->validate([
-            'username' => 'required',
+            'email' => 'required|email',
             'password' => 'required|min:6',
             'url' => 'required',
             'category_id' => 'required',
         ]);
 
-        $attributes['email'] = request()->email;
+        $attributes['username'] = auth()->user()->name;
 
         $attributes['password'] = Crypt::encryptString($attributes['password']);
 
@@ -46,17 +60,36 @@ class PasswordController extends Controller
 
         Password::create($attributes);
 
-        return redirect('/');
+        return redirect('/password');
     }
 
-    public function edit()
+    public function edit(Password $password)
     {
+        $attributes = request()->validate([
+            'password' => 'required|min:6',
+            'url' => 'required',
+            'category_id' => 'required',
+        ]);
+
+        $attributes['username'] = auth()->user()->name;
+
+        $attributes['email'] = request()->email;
+
+        $attributes['password'] = Crypt::encryptString($attributes['password']);
+
+        $attributes['user_id'] = auth()->user()->id;
+
+        $attributes['remarks'] = request()->remarks;
+
+        $password->update($attributes);
+
+        return redirect('/password');
     }
 
     public function destroy(Password $password)
     {
-        Password::destroy($password);
+        $password->delete();
 
-        return redirect('/');
+        return redirect('/password');
     }
 }
