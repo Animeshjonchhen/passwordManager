@@ -32,9 +32,8 @@
                                     @endcan
 
                                     @if (auth()->user()->id == $password->user->id ||
-                                        auth()->user()->name == 'Example Super-Admin User' ||
-                                        auth()->user()->name == 'Example admin' ||
-                                        auth()->user()->name == 'Example user')
+                                        auth()->user()->hasRole('Super-Admin')||
+                                        auth()->user()->hasRole('admin'))
                                         @can('delete password')
                                             <form action="/delete/password/{{ $password->id }} " method="post">
                                                 @csrf

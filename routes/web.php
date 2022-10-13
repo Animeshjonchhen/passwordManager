@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\category_user;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\PasswordController;
@@ -63,3 +64,8 @@ Route::post('/create/category', [CategoryController::class, 'store']);
 Route::get('/update/category/{category}', [CategoryController::class, 'show']);
 Route::put('/update/category/{category}', [CategoryController::class, 'edit']);
 Route::delete('/delete/category/{category}', [CategoryController::class, 'destroy']);
+
+
+//category&user
+
+Route::get('/add/category&user',[category_user::class,'index']);
