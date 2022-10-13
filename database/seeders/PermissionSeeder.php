@@ -17,10 +17,6 @@ class PermissionSeeder extends Seeder
      */
     public function run()
     {
-        // Reset cached roles and permission
-
-        // app()[PermissionRegistrar::class]->forgetCachedPermissions();
-
         //create permission
 
         Permission::create(['name' => 'add category']);
@@ -42,12 +38,16 @@ class PermissionSeeder extends Seeder
         $role1->givePermissionTo('add category');
         $role1->givePermissionTo('edit category');
         $role1->givePermissionTo('edit users');
+        $role1->givePermissionTO('view password');
+        $role1->givePermissionTo('edit password');
+        $role1->givePermissionTo('delete password');
 
         $role2 = Role::create(['name' => 'guest']);
         $role2->givePermissionTo('add password');
+        $role2->givePermissionTo('edit password');
         $role2->givePermissionTo('view password');
 
-        $role3 = Role::create(['name' => 'maintainer']);
+        $role3 = Role::create(['name' => 'user']);
         $role3->givePermissionTo('add password');
         $role3->givePermissionTo('view password');
         $role3->givePermissionTo('edit password');
@@ -57,7 +57,7 @@ class PermissionSeeder extends Seeder
         // gets all permissions via Gate::before rule;
 
         // create demo users
-         $user = \App\Models\User::factory()->create([
+        $user = \App\Models\User::factory()->create([
             'name' => 'Example admin',
             'email' => 'testadmin@example.com',
             'password' => Hash::make('password'),

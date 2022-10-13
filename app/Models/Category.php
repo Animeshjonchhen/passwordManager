@@ -17,4 +17,9 @@ class Category extends Model
     {
         $this->hasMany(Password::class,'passwords_id');
     }
+
+    public function user()
+    {
+        $this->hasMany(User::class,'user_id');
+    }
 }

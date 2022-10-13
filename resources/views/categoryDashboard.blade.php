@@ -27,11 +27,13 @@
 
                                 <a href="/update/category/{{ $category->id }}" class="flex btn btn-primary"> Edit</a>
 
-                                <form action="/delete/category/{{ $category->id }}" method="post" class="flex">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger mx-3">Delete</button>
-                                </form>
+                                @can('delete category')
+                                    <form action="/delete/category/{{ $category->id }}" method="post" class="flex">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger mx-3">Delete</button>
+                                    </form>
+                                @endcan
                             </td>
                         @endcan
                     </tr>

@@ -29,11 +29,13 @@
 
                                 <a href="/update/users/{{ $user->id }}" class="flex btn btn-primary"> Edit</a>
 
-                                <form action="/delete/users/{{ $user->id }}" method="post" class="flex">
-                                    @csrf
-                                    @method('delete')
-                                    <button class="btn btn-danger mx-3">Delete</button>
-                                </form>
+                                @can('delete user')
+                                    <form action="/delete/users/{{ $user->id }}" method="post" class="flex">
+                                        @csrf
+                                        @method('delete')
+                                        <button class="btn btn-danger mx-3">Delete</button>
+                                    </form>
+                                @endcan
                             </td>
                         @endcan
                     </tr>

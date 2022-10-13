@@ -52,6 +52,7 @@ Route::post('/create/password', [PasswordController::class, 'store']);
 Route::delete('/delete/password/{password}', [PasswordController::class, 'destroy']);
 Route::get('/update/password/{password}', [PasswordController::class, 'show']);
 Route::put('/update/password/{password}', [PasswordController::class, 'edit']);
+Route::get('/view/password/{password}',[PasswordController::class,'display']);
 
 
 

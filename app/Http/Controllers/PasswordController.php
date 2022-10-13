@@ -12,7 +12,7 @@ class PasswordController extends Controller
     public function index()
     {
         if (auth()->user()) {
-            if (auth()->user()->name === "Example Super-Admin User") {
+            if (auth()->user()->name === "Example Super-Admin User" || auth()->user()->name === "Example admin" ) {
                 return view('Password.index', [
                     'passwords' => Password::all()
                 ]);
@@ -84,6 +84,13 @@ class PasswordController extends Controller
         $password->update($attributes);
 
         return redirect('/password');
+    }
+
+    public function display(Password $password)
+    {
+        return view('Password.view',[
+            'password' => Password::find($password->id),
+        ]);
     }
 
     public function destroy(Password $password)

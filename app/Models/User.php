@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Password::class,'password_id');
     }
+
+    public function Category()
+    {
+        return $this->belongsTo(Category::class,'category_id');
+    }
 }

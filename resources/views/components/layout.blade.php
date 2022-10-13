@@ -21,7 +21,7 @@
                         <li class="nav-item">
                             <a href="/users" class="p-3">User</a>
                         </li>
-    
+
                         <li class="nav-item">
                             <a href="/category">Category</a>
                         </li>
@@ -37,9 +37,11 @@
                             <a href="" class="p-3"> {{ auth()->user()->name }} </a>
                         </li>
 
-                        <li class="nav-item">
-                            <a href="/create/password" class="p-3"> Create Password</a>
-                        </li>
+                        @can('add password')
+                            <li class="nav-item">
+                                <a href="/create/password" class="p-3"> Create Password</a>
+                            </li>
+                        @endcan
 
                         <li class="nav-item">
                             <form action="/logout" method="POST">
